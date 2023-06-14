@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SohelAfzalShajol_Playon24Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer_Register">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cus_Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cus_Gender" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Cus_Type" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Cus_Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cus_RePassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Reg_Date" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pro_Order">
+          <Key>
+            <PropertyRef Name="Pro_Order_ID" />
+          </Key>
+          <Property Name="Pro_Order_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_ID" Type="int" Nullable="false" />
+          <Property Name="Customer_ID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Total_Cost" Type="float" Nullable="false" />
+          <Property Name="Order_Date" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Pro_Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Pro_Category" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pro_Price" Type="float" Nullable="false" />
+          <Property Name="Pro_Stock" Type="int" Nullable="false" />
+          <Property Name="Pro_img" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Pro_img_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="EntryBy" Type="int" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Pro_Order_Customer_Register">
+          <End Role="Customer_Register" Type="Self.Customer_Register" Multiplicity="1" />
+          <End Role="Pro_Order" Type="Self.Pro_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Register">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Pro_Order">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pro_Order_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Pro_Order" Type="Self.Pro_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Pro_Order">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Customer_Register">
+          <End Role="Customer_Register" Type="Self.Customer_Register" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Register">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="EntryBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Customer_Register1">
+          <End Role="Customer_Register" Type="Self.Customer_Register" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Register">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UpdateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_Customer_Register" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Customer_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Cus_Email" Type="varchar" Mode="In" />
+          <Parameter Name="Cus_Gender" Type="char" Mode="In" />
+          <Parameter Name="Cus_Type" Type="nvarchar" Mode="In" />
+          <Parameter Name="Cus_Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="Cus_RePassword" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <EntityContainer Name="SohelAfzalShajol_Playon24ModelStoreContainer">
+          <EntitySet Name="Customer_Register" EntityType="Self.Customer_Register" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_Order" EntityType="Self.Pro_Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Pro_Order_Customer_Register" Association="Self.FK_Pro_Order_Customer_Register">
+            <End Role="Customer_Register" EntitySet="Customer_Register" />
+            <End Role="Pro_Order" EntitySet="Pro_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pro_Order_Product" Association="Self.FK_Pro_Order_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Pro_Order" EntitySet="Pro_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Customer_Register" Association="Self.FK_Product_Customer_Register">
+            <End Role="Customer_Register" EntitySet="Customer_Register" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Customer_Register1" Association="Self.FK_Product_Customer_Register1">
+            <End Role="Customer_Register" EntitySet="Customer_Register" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SohelAfzalShajol_Playon24Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer_Register">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cus_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cus_Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cus_Type" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cus_Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cus_RePassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Reg_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register" FromRole="Customer_Register" ToRole="Product" />
+          <NavigationProperty Name="Products1" Relationship="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register1" FromRole="Customer_Register" ToRole="Product" />
+          <NavigationProperty Name="Pro_Order" Relationship="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Customer_Register" FromRole="Customer_Register" ToRole="Pro_Order" />
+          </EntityType>
+        <EntityContainer Name="SohelAfzalShajol_Playon24Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customer_Register" EntityType="Self.Customer_Register" />
+          <FunctionImport Name="SP_Customer_Register">
+            <Parameter Name="Customer_Name" Mode="In" Type="String" />
+            <Parameter Name="Cus_Email" Mode="In" Type="String" />
+            <Parameter Name="Cus_Gender" Mode="In" Type="String" />
+            <Parameter Name="Cus_Type" Mode="In" Type="String" />
+            <Parameter Name="Cus_Password" Mode="In" Type="String" />
+            <Parameter Name="Cus_RePassword" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="Fn_Customer_Register" EntitySet="Customer_Register" ReturnType="Collection(SohelAfzalShajol_Playon24Model.Customer_Register)">
+            <Parameter Name="Customer_Name" Mode="In" Type="String" />
+            <Parameter Name="Cus_Email" Mode="In" Type="String" />
+            <Parameter Name="Cus_Gender" Mode="In" Type="String" />
+            <Parameter Name="Cus_Type" Mode="In" Type="String" />
+            <Parameter Name="Cus_Password" Mode="In" Type="String" />
+            <Parameter Name="Cus_RePassword" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <EntitySet Name="Products" EntityType="SohelAfzalShajol_Playon24Model.Product" />
+          <AssociationSet Name="FK_Product_Customer_Register" Association="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register">
+            <End Role="Customer_Register" EntitySet="Customer_Register" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Customer_Register1" Association="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register1">
+            <End Role="Customer_Register" EntitySet="Customer_Register" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <EntitySet Name="Pro_Order" EntityType="SohelAfzalShajol_Playon24Model.Pro_Order" />
+          <AssociationSet Name="FK_Pro_Order_Customer_Register" Association="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Customer_Register">
+            <End Role="Customer_Register" EntitySet="Customer_Register" />
+            <End Role="Pro_Order" EntitySet="Pro_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pro_Order_Product" Association="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Pro_Order" EntitySet="Pro_Order" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Pro_Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Pro_Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pro_Price" Type="Double" Nullable="false" />
+          <Property Name="Pro_Stock" Type="Int32" Nullable="false" />
+          <Property Name="Pro_img" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EntryBy" Type="Int32" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Customer_Register" Relationship="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register" FromRole="Product" ToRole="Customer_Register" />
+          <NavigationProperty Name="Customer_Register1" Relationship="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register1" FromRole="Product" ToRole="Customer_Register" />
+          <Property Name="Pro_img_name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pro_Order" Relationship="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Product" FromRole="Product" ToRole="Pro_Order" />
+        </EntityType>
+        <Association Name="FK_Product_Customer_Register">
+          <End Type="SohelAfzalShajol_Playon24Model.Customer_Register" Role="Customer_Register" Multiplicity="1" />
+          <End Type="SohelAfzalShajol_Playon24Model.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Register">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="EntryBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Customer_Register1">
+          <End Type="SohelAfzalShajol_Playon24Model.Customer_Register" Role="Customer_Register" Multiplicity="0..1" />
+          <End Type="SohelAfzalShajol_Playon24Model.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Register">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UpdateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Pro_Order">
+          <Key>
+            <PropertyRef Name="Pro_Order_ID" />
+          </Key>
+          <Property Name="Pro_Order_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_ID" Type="Int32" Nullable="false" />
+          <Property Name="Customer_ID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Total_Cost" Type="Double" Nullable="false" />
+          <Property Name="Order_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Customer_Register" Relationship="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Customer_Register" FromRole="Pro_Order" ToRole="Customer_Register" />
+          <NavigationProperty Name="Product" Relationship="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Product" FromRole="Pro_Order" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Pro_Order_Customer_Register">
+          <End Type="SohelAfzalShajol_Playon24Model.Customer_Register" Role="Customer_Register" Multiplicity="1" />
+          <End Type="SohelAfzalShajol_Playon24Model.Pro_Order" Role="Pro_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Register">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Pro_Order">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pro_Order_Product">
+          <End Type="SohelAfzalShajol_Playon24Model.Product" Role="Product" Multiplicity="1" />
+          <End Type="SohelAfzalShajol_Playon24Model.Pro_Order" Role="Pro_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="Pro_Order">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SohelAfzalShajol_Playon24ModelStoreContainer" CdmEntityContainer="SohelAfzalShajol_Playon24Entities">
+          <EntitySetMapping Name="Customer_Register">
+            <EntityTypeMapping TypeName="SohelAfzalShajol_Playon24Model.Customer_Register">
+              <MappingFragment StoreEntitySet="Customer_Register">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Cus_Email" ColumnName="Cus_Email" />
+                <ScalarProperty Name="Cus_Gender" ColumnName="Cus_Gender" />
+                <ScalarProperty Name="Cus_Type" ColumnName="Cus_Type" />
+                <ScalarProperty Name="Cus_Password" ColumnName="Cus_Password" />
+                <ScalarProperty Name="Cus_RePassword" ColumnName="Cus_RePassword" />
+                <ScalarProperty Name="Reg_Date" ColumnName="Reg_Date" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_Customer_Register" FunctionName="SohelAfzalShajol_Playon24Model.Store.SP_Customer_Register" />
+          <FunctionImportMapping FunctionImportName="Fn_Customer_Register" FunctionName="SohelAfzalShajol_Playon24Model.Store.SP_Customer_Register" />
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="SohelAfzalShajol_Playon24Model.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Pro_img_name" ColumnName="Pro_img_name" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="EntryBy" ColumnName="EntryBy" />
+                <ScalarProperty Name="Pro_img" ColumnName="Pro_img" />
+                <ScalarProperty Name="Pro_Stock" ColumnName="Pro_Stock" />
+                <ScalarProperty Name="Pro_Price" ColumnName="Pro_Price" />
+                <ScalarProperty Name="Pro_Category" ColumnName="Pro_Category" />
+                <ScalarProperty Name="Pro_Description" ColumnName="Pro_Description" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_Order">
+            <EntityTypeMapping TypeName="SohelAfzalShajol_Playon24Model.Pro_Order">
+              <MappingFragment StoreEntitySet="Pro_Order">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+                <ScalarProperty Name="Total_Cost" ColumnName="Total_Cost" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Pro_Order_ID" ColumnName="Pro_Order_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

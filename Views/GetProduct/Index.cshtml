@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SohelAfzalShajol_Playon24.Models.Get_Pro_Class>
+@{
+    ViewBag.Title = "Products";
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 10);
+}
+
+<center>
+    <h2>Products</h2>
+    <hr />
+    @grid.GetHtml(
+        tableStyle: "table",
+        mode: WebGridPagerModes.All,
+        firstText: "<< First",
+        previousText: "< Previous",
+        nextText: "Next >",
+        lastText: "Last >>",
+        columns: new[]
+        {
+            grid.Column("Product_Name", "Name"),
+            grid.Column("Pro_Description", "Description"),
+            grid.Column("Pro_Category", "Category"),
+            grid.Column("Pro_Price", "Price"),
+            grid.Column("Pro_Stock", "Stock"),
+            grid.Column("Pro_img","Image",format:@<text><img src="~/images/@Url.Content(item.Pro_img_name)" alt="@item.Product_Name" height="100" width="100"></text>),
+            grid.Column(
+                columnName: "Action",
+                format: (item) =>
+                    {
+                       var links = Html.ActionLink("Buy", "ProductSell",    new {pro_id = item.Product_ID});
+                       return Html.Raw(links);
+                    }
+                )
+        }
+    )
+</center>

@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SohelAfzalShajol_Playon24Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer_Register">
+    <Key>
+      <PropertyRef Name="Customer_ID" />
+    </Key>
+    <Property Name="Customer_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Customer_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cus_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cus_Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Cus_Type" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cus_Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cus_RePassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Reg_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register" FromRole="Customer_Register" ToRole="Product" />
+    <NavigationProperty Name="Products1" Relationship="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register1" FromRole="Customer_Register" ToRole="Product" />
+    <NavigationProperty Name="Pro_Order" Relationship="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Customer_Register" FromRole="Customer_Register" ToRole="Pro_Order" />
+  </EntityType>
+  <EntityContainer Name="SohelAfzalShajol_Playon24Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customer_Register" EntityType="Self.Customer_Register" />
+    <FunctionImport Name="SP_Customer_Register">
+      <Parameter Name="Customer_Name" Mode="In" Type="String" />
+      <Parameter Name="Cus_Email" Mode="In" Type="String" />
+      <Parameter Name="Cus_Gender" Mode="In" Type="String" />
+      <Parameter Name="Cus_Type" Mode="In" Type="String" />
+      <Parameter Name="Cus_Password" Mode="In" Type="String" />
+      <Parameter Name="Cus_RePassword" Mode="In" Type="String" />
+      <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="Fn_Customer_Register" EntitySet="Customer_Register" ReturnType="Collection(SohelAfzalShajol_Playon24Model.Customer_Register)">
+      <Parameter Name="Customer_Name" Mode="In" Type="String" />
+      <Parameter Name="Cus_Email" Mode="In" Type="String" />
+      <Parameter Name="Cus_Gender" Mode="In" Type="String" />
+      <Parameter Name="Cus_Type" Mode="In" Type="String" />
+      <Parameter Name="Cus_Password" Mode="In" Type="String" />
+      <Parameter Name="Cus_RePassword" Mode="In" Type="String" />
+      <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <EntitySet Name="Products" EntityType="SohelAfzalShajol_Playon24Model.Product" />
+    <AssociationSet Name="FK_Product_Customer_Register" Association="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register">
+      <End Role="Customer_Register" EntitySet="Customer_Register" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Customer_Register1" Association="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register1">
+      <End Role="Customer_Register" EntitySet="Customer_Register" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <EntitySet Name="Pro_Order" EntityType="SohelAfzalShajol_Playon24Model.Pro_Order" />
+    <AssociationSet Name="FK_Pro_Order_Customer_Register" Association="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Customer_Register">
+      <End Role="Customer_Register" EntitySet="Customer_Register" />
+      <End Role="Pro_Order" EntitySet="Pro_Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pro_Order_Product" Association="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Pro_Order" EntitySet="Pro_Order" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Product_ID" />
+    </Key>
+    <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Pro_Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Pro_Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Pro_Price" Type="Double" Nullable="false" />
+    <Property Name="Pro_Stock" Type="Int32" Nullable="false" />
+    <Property Name="Pro_img" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="EntryBy" Type="Int32" Nullable="false" />
+    <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Customer_Register" Relationship="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register" FromRole="Product" ToRole="Customer_Register" />
+    <NavigationProperty Name="Customer_Register1" Relationship="SohelAfzalShajol_Playon24Model.FK_Product_Customer_Register1" FromRole="Product" ToRole="Customer_Register" />
+    <Property Name="Pro_img_name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Pro_Order" Relationship="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Product" FromRole="Product" ToRole="Pro_Order" />
+  </EntityType>
+  <Association Name="FK_Product_Customer_Register">
+    <End Type="SohelAfzalShajol_Playon24Model.Customer_Register" Role="Customer_Register" Multiplicity="1" />
+    <End Type="SohelAfzalShajol_Playon24Model.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer_Register">
+        <PropertyRef Name="Customer_ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="EntryBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Customer_Register1">
+    <End Type="SohelAfzalShajol_Playon24Model.Customer_Register" Role="Customer_Register" Multiplicity="0..1" />
+    <End Type="SohelAfzalShajol_Playon24Model.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer_Register">
+        <PropertyRef Name="Customer_ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="UpdateBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Pro_Order">
+    <Key>
+      <PropertyRef Name="Pro_Order_ID" />
+    </Key>
+    <Property Name="Pro_Order_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_ID" Type="Int32" Nullable="false" />
+    <Property Name="Customer_ID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Total_Cost" Type="Double" Nullable="false" />
+    <Property Name="Order_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Customer_Register" Relationship="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Customer_Register" FromRole="Pro_Order" ToRole="Customer_Register" />
+    <NavigationProperty Name="Product" Relationship="SohelAfzalShajol_Playon24Model.FK_Pro_Order_Product" FromRole="Pro_Order" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK_Pro_Order_Customer_Register">
+    <End Type="SohelAfzalShajol_Playon24Model.Customer_Register" Role="Customer_Register" Multiplicity="1" />
+    <End Type="SohelAfzalShajol_Playon24Model.Pro_Order" Role="Pro_Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer_Register">
+        <PropertyRef Name="Customer_ID" />
+      </Principal>
+      <Dependent Role="Pro_Order">
+        <PropertyRef Name="Customer_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pro_Order_Product">
+    <End Type="SohelAfzalShajol_Playon24Model.Product" Role="Product" Multiplicity="1" />
+    <End Type="SohelAfzalShajol_Playon24Model.Pro_Order" Role="Pro_Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Product_ID" />
+      </Principal>
+      <Dependent Role="Pro_Order">
+        <PropertyRef Name="Product_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

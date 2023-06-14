@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "ProductSell";
+}
+<script src="~/Scripts/OrderReport/OrderReport.js"></script>
+@if (Session["UserEmail"] != null)
+{
+    <center>
+        <h2>Product Ordered Successfully!</h2>
+        <div>
+            <button class="btn btn-info" id="btnLoadReport">Load Report</button>
+        </div>
+    </center>
+}
+else
+{
+    Response.Redirect("~/CustomerLogin/Index");
+}
+<script type="text/javascript">
+    function preventBack() {
+        window.history.forward();
+    }
+    setTimeout("preventBack()", 0);
+    window.onunload = function () {
+        null;
+    }
+</script>
+
+

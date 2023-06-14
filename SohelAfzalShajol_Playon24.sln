@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32510.428
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SohelAfzalShajol_Playon24", "SohelAfzalShajol_Playon24.csproj", "{736EFA93-8A20-4EF0-9D28-7496C39158BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{736EFA93-8A20-4EF0-9D28-7496C39158BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{736EFA93-8A20-4EF0-9D28-7496C39158BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{736EFA93-8A20-4EF0-9D28-7496C39158BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{736EFA93-8A20-4EF0-9D28-7496C39158BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
+		SolutionGuid = {72A6B2E6-F7F1-4E6B-91C9-0F0F40D4A514}
+	EndGlobalSection
+EndGlobal
